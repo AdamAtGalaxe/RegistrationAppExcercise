@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 class loginPage : AppCompatActivity() {
     lateinit var userName: EditText
@@ -18,16 +19,37 @@ class loginPage : AppCompatActivity() {
         userName = findViewById(R.id.user)
         password = findViewById(R.id.pass)
 
-
-
     }
     fun verifyLogin(v: View){
-        if(userName.text.toString() == "admin" && password.text.toString() == "admin123")
+        if(userName.text.toString() == "admin" && password.text.toString() == "admin123") {
             Toast.makeText(this, "Logged in!", Toast.LENGTH_LONG).show()
-        else Toast.makeText(this, "Wrong!", Toast.LENGTH_LONG).show()
+            intent = Intent(this, AboutUs::class.java)
+            startActivity(intent)
+        }
+        else if(userName.text.toString() == "" && password.text.toString() == "") {
+            var msg = "Username and/or password are empty."
+            showAlert(v, msg)
+        }
+        else{
+            var msg = "Username and/or password are incorrect."
+            showAlert(v, msg)
+        }
+
     }
     fun back(v: View){
         intent = Intent(this, MainActivity::class.java )
         startActivity(intent)
+    }
+    fun showAlert(v: View, msg: String){
+        var alert = AlertDialog.Builder(this)
+        alert.setTitle("Error")
+        alert.setMessage(msg)
+        alert.setIcon(android.R.drawable.ic_dialog_alert)
+        alert.setPositiveButton("OK"){dialog, which ->
+            Toast.makeText(this, "Continue", Toast.LENGTH_LONG).show()
+        }
+
+        var myalert : AlertDialog = alert.create()
+        myalert.show()
     }
 }
