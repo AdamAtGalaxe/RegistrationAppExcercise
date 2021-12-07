@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 
@@ -15,7 +14,7 @@ class loginPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
-
+        supportActionBar?.hide()
         userName = findViewById(R.id.user)
         password = findViewById(R.id.pass)
 
@@ -37,8 +36,9 @@ class loginPage : AppCompatActivity() {
 
     }
     fun back(v: View){
-        intent = Intent(this, MainActivity::class.java )
-        startActivity(intent)
+        finish()
+        //intent = Intent(this, MainActivity::class.java )
+        //startActivity(intent)
     }
     fun showAlert(v: View, msg: String){
         var alert = AlertDialog.Builder(this)
