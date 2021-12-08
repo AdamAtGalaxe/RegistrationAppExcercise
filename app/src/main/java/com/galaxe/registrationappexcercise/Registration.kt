@@ -1,6 +1,8 @@
 package com.galaxe.registrationappexcercise
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -41,7 +43,7 @@ class Registration : AppCompatActivity() {
     }
     fun showAlert(v: View){
         var alert = AlertDialog.Builder(this)
-        if(name.text.toString() != "" || password.text.toString() != "" || city.text.toString() != ""){
+        if(name.text.toString() != "" && password.text.toString() != "" && city.text.toString() != ""){
 
             alert.setTitle("ALERT!!!")
             alert.setMessage("You've been saved by the blood of GalaxE!")
@@ -49,10 +51,17 @@ class Registration : AppCompatActivity() {
             alert.setPositiveButton("Praise him"){dialog, which ->
             }
 
+            var sharedPref : SharedPreferences = this.getSharedPreferences("Myfile", Context.MODE_PRIVATE)
+            var sfedit : SharedPreferences.Editor = sharedPref.edit()
+
+            sfedit.putString("name", name.text.toString())
+            sfedit.putString("pass", password.text.toString())
+
+            sfedit.commit()
         }
         else {
             alert.setTitle("ALERT!!!")
-            alert.setMessage("You' have done wrong.. Go straight to hell!")
+            alert.setMessage("You have done wrong.. Go straight to hell!")
             alert.setIcon(android.R.drawable.ic_dialog_alert)
             alert.setPositiveButton("Womp womp"){dialog, which ->
             }
@@ -60,6 +69,7 @@ class Registration : AppCompatActivity() {
 
         var myalert : AlertDialog = alert.create()
         myalert.show()
+
     }
     fun home(v: View){
 

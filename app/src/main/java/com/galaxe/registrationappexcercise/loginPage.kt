@@ -1,6 +1,8 @@
 package com.galaxe.registrationappexcercise
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -21,6 +23,17 @@ class loginPage : AppCompatActivity() {
     }
     fun verifyLogin(v: View){
         if(userName.text.toString() == "admin" && password.text.toString() == "admin123") {
+
+
+
+            var sharedPref : SharedPreferences = this.getSharedPreferences("Myfile", Context.MODE_PRIVATE)
+            var sfedit : SharedPreferences.Editor = sharedPref.edit()
+
+            sfedit.putString("name", userName.text.toString())
+            sfedit.putString("pass", password.text.toString())
+
+            sfedit.commit()
+
             Toast.makeText(this, "Logged in!", Toast.LENGTH_LONG).show()
             intent = Intent(this, AboutUs::class.java)
             startActivity(intent)
