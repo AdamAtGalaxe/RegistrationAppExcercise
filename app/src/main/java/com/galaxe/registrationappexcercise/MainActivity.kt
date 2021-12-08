@@ -19,5 +19,10 @@ class MainActivity : AppCompatActivity() {
         intent = Intent(this, loginPage::class.java )
         startActivity(intent)
     }
+    fun register(v: View){
+
+        intent = Intent(this, Registration::class.java )
+        startActivity(intent)
+    }
 
 }
