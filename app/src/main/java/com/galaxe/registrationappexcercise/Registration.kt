@@ -20,6 +20,9 @@ class Registration : AppCompatActivity() {
     lateinit var city: EditText
     lateinit var register: Button
     lateinit var next: Button
+    lateinit var myMonth: String
+    lateinit var myDay: String
+    lateinit var myYear: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +35,15 @@ class Registration : AppCompatActivity() {
 
         birth = findViewById(R.id.birthday)
         var today = Calendar.getInstance()
+
         birth.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH))
         {view, year, month, day ->
-            var month = month + 1
-            var msg = "You have selected $day/$month/$year"
+            myMonth = (month + 1).toString()
+            myDay = day.toString()
+            myYear = year.toString()
+           // var msg = "You have selected $day/$month/$year"
 
-            Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+            //Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
 
         }
     }
@@ -56,6 +62,12 @@ class Registration : AppCompatActivity() {
 
             sfedit.putString("name", name.text.toString())
             sfedit.putString("pass", password.text.toString())
+            sfedit.putString("day", myDay)
+            sfedit.putString("month", myMonth)
+            sfedit.putString("year", myYear)
+
+
+
 
             sfedit.commit()
         }
@@ -73,7 +85,7 @@ class Registration : AppCompatActivity() {
     }
     fun home(v: View){
 
-        intent = Intent(this, AboutUs::class.java )
+        intent = Intent(this, Welcome::class.java )
         startActivity(intent)
     }
 
